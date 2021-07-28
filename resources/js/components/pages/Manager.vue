@@ -80,7 +80,7 @@
                 <!-- ARTICLE EDITING MODAL -->
                 <Modal
                     v-model="editModal"
-                    title="Edit article"
+                    title="Edit Article"
                     :mask-closable = 'false'
                     :closable = 'false'
 
@@ -120,7 +120,7 @@
                 <Modal
                     v-model="showModal"
                     width="720"
-                    title="Add article"
+                    title="Article"
                     :mask-closable = 'false'
                     :closable = 'false'
 

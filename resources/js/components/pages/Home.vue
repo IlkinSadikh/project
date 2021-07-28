@@ -5,7 +5,8 @@
 
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Recent News</p>
+					<p class="_title0">News</p>
+                    <Input style='margin: 5px' search v-model="search" placeholder="Search by category" /></p>
 
 					<div class="_overflow _table_div">
 						<table class="_table">
@@ -20,7 +21,7 @@
 
 
 								<!-- ITEMS -->
-							<tr v-for="(article, index) in articles" :key="index" v-if="articles.length">
+							<tr v-for="(article, index) in filteredArticles" :key="index" v-if="articles.length">
 								<td>{{ article.title }}</td>
 								<td>{{ article.category }}</td>
                                 <td>{{ article.description }}</td>
@@ -36,7 +37,7 @@
                 <Modal
                     v-model="showModal"
                     width="720"
-                    title="Add article"
+                    title="Article"
                     :mask-closable = 'false'
                     :closable = 'false'
 
@@ -62,32 +63,14 @@
 export default {
     data() {
         return {
-            data: {
-                title : '',
-				category : '',
-				description : '',
-            },
-            addModal : false,
-            editModal : false,
             showModal : false,
-            isAdding : false,
             articles: [],
-            editData : {
-                title : '',
-				category : '',
-				description : '',
-            },
             showData : {
                 title : '',
 				category : '',
 				description : '',
             },
-            index : -1,
-            showDeleteModal: false,
-            isDeleting : false,
-            deleteItem: {},
-            deletingIndex: -1,
-            token: '',
+            search: '',
         }
     },
 
@@ -111,6 +94,14 @@ export default {
             this.articles = res.data
         }else{
             this.swr()
+        }
+    },
+
+    computed: {
+        filteredArticles: function(){
+            return this.articles.filter((article) => {
+                return article.category.match(this.search)
+            })
         }
     },
 }

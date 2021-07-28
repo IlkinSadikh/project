@@ -1924,35 +1924,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      data: {
-        title: '',
-        category: '',
-        description: ''
-      },
-      addModal: false,
-      editModal: false,
       showModal: false,
-      isAdding: false,
       articles: [],
-      editData: {
-        title: '',
-        category: '',
-        description: ''
-      },
       showData: {
         title: '',
         category: '',
         description: ''
       },
-      index: -1,
-      showDeleteModal: false,
-      isDeleting: false,
-      deleteItem: {},
-      deletingIndex: -1,
-      token: ''
+      search: ''
     };
   },
   methods: {
@@ -1996,6 +1979,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }, _callee);
     }))();
+  },
+  computed: {
+    filteredArticles: function filteredArticles() {
+      var _this2 = this;
+
+      return this.articles.filter(function (article) {
+        return article.category.match(_this2.search);
+      });
+    }
   }
 });
 
@@ -67617,7 +67609,20 @@ var render = function() {
                 "_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20"
             },
             [
-              _c("p", { staticClass: "_title0" }, [_vm._v("Recent News")]),
+              _c("p", { staticClass: "_title0" }, [_vm._v("News")]),
+              _vm._v(" "),
+              _c("Input", {
+                staticStyle: { margin: "5px" },
+                attrs: { search: "", placeholder: "Search by category" },
+                model: {
+                  value: _vm.search,
+                  callback: function($$v) {
+                    _vm.search = $$v
+                  },
+                  expression: "search"
+                }
+              }),
+              _c("p"),
               _vm._v(" "),
               _c("div", { staticClass: "_overflow _table_div" }, [
                 _c(
@@ -67626,7 +67631,7 @@ var render = function() {
                   [
                     _vm._m(0),
                     _vm._v(" "),
-                    _vm._l(_vm.articles, function(article, index) {
+                    _vm._l(_vm.filteredArticles, function(article, index) {
                       return _vm.articles.length
                         ? _c("tr", { key: index }, [
                             _c("td", [_vm._v(_vm._s(article.title))]),
@@ -67660,7 +67665,8 @@ var render = function() {
                   2
                 )
               ])
-            ]
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
@@ -67668,7 +67674,7 @@ var render = function() {
             {
               attrs: {
                 width: "720",
-                title: "Add article",
+                title: "Article",
                 "mask-closable": false,
                 closable: false
               },
@@ -68025,7 +68031,7 @@ var render = function() {
             "Modal",
             {
               attrs: {
-                title: "Edit article",
+                title: "Edit Article",
                 "mask-closable": false,
                 closable: false
               },
@@ -68189,7 +68195,7 @@ var render = function() {
             {
               attrs: {
                 width: "720",
-                title: "Add article",
+                title: "Article",
                 "mask-closable": false,
                 closable: false
               },
