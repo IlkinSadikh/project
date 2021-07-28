@@ -2162,6 +2162,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2190,7 +2191,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isDeleting: false,
       deleteItem: {},
       deletingIndex: -1,
-      token: ''
+      token: '',
+      search: ''
     };
   },
   methods: {
@@ -2430,6 +2432,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }, _callee4);
     }))();
+  },
+  computed: {
+    filteredArticles: function filteredArticles() {
+      var _this5 = this;
+
+      return this.articles.filter(function (article) {
+        return article.category.match(_this5.search);
+      });
+    }
   }
 });
 
@@ -67798,6 +67809,7 @@ var render = function() {
                   _c(
                     "Button",
                     {
+                      staticStyle: { margin: "5px" },
                       on: {
                         click: function($event) {
                           _vm.addModal = true
@@ -67809,7 +67821,18 @@ var render = function() {
                       _c("Icon", { attrs: { type: "md-add" } })
                     ],
                     1
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c("Input", {
+                    attrs: { search: "", placeholder: "Search by category" },
+                    model: {
+                      value: _vm.search,
+                      callback: function($$v) {
+                        _vm.search = $$v
+                      },
+                      expression: "search"
+                    }
+                  })
                 ],
                 1
               ),
@@ -67821,7 +67844,7 @@ var render = function() {
                   [
                     _vm._m(0),
                     _vm._v(" "),
-                    _vm._l(_vm.articles, function(article, index) {
+                    _vm._l(_vm.filteredArticles, function(article, index) {
                       return _vm.articles.length
                         ? _c("tr", { key: index }, [
                             _c("td", [_vm._v(_vm._s(article.id))]),
